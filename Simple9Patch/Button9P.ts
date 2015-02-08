@@ -103,6 +103,9 @@
             var sp: Phaser.Sprite;
             var posy = 0;
             var posbasey = 0;
+            var smallx = this.baseSize.x * (this.lefttopRatio.x + this.rightbottomRatio.x) > this.width;
+            var smally = this.baseSize.y * (this.lefttopRatio.y + this.rightbottomRatio.y) > this.height;
+
             for (var j = 0; j < 3; j++) {
                 var posx = 0;
                 var posbasex = 0;
@@ -112,15 +115,22 @@
                     sp = this.splite[i + j * 3]; //  rectのバウンドはあとで調整する　cropで調整する場合、位置は全部同じにできるはず
                     switch (i) {
                         case 0: //  left
-                            w = this.baseSize.x * this.lefttopRatio.x;
-                            wb = w;
+                            wb = this.baseSize.x * this.lefttopRatio.x;
+                            if (smallx)
+                                w = this.width * (this.lefttopRatio.x + (1 - this.lefttopRatio.x - this.rightbottomRatio.x) / 2);
+                            else
+                                w = wb;
                             break;
                         case 2: //  right
-                            w = this.baseSize.x * this.rightbottomRatio.x;
-                            wb = w;
+                            wb = this.baseSize.x * this.rightbottomRatio.x;
+                            if (smallx)
+                                w = this.width * (this.rightbottomRatio.x + (1 - this.lefttopRatio.x - this.rightbottomRatio.x) / 2);
+                            else
+                                w = wb;
                             break;
                         default:
                             w = this.width - this.baseSize.x * (this.lefttopRatio.x + this.rightbottomRatio.x);
+                            if (w <= 0) w = 0;
                             wb = this.baseSize.x * (1 - this.lefttopRatio.x - this.rightbottomRatio.x);
                             break;
                     }
@@ -128,15 +138,22 @@
                     var hb: number;
                     switch (j) {
                         case 0: //  top
-                            h = this.baseSize.y * this.lefttopRatio.y;
-                            hb = h;
+                            hb = this.baseSize.y * this.lefttopRatio.y;
+                            if (smally)
+                                h = this.height * (this.lefttopRatio.y + (1 - this.lefttopRatio.y - this.rightbottomRatio.y) / 2);
+                            else
+                                h = hb;
                             break;
                         case 2: //  bottom
-                            h = this.baseSize.y * this.rightbottomRatio.y;
-                            hb = h;
+                            hb = this.baseSize.y * this.rightbottomRatio.y;
+                            if (smally)
+                                h = this.height * (this.rightbottomRatio.y + (1 - this.lefttopRatio.y - this.rightbottomRatio.y) / 2);
+                            else
+                                h = hb;
                             break;
                         default:
                             h = this.height - this.baseSize.y * (this.lefttopRatio.y + this.rightbottomRatio.y);
+                            if (h <= 0) h = 0;
                             hb = this.baseSize.y * (1 - this.lefttopRatio.y - this.rightbottomRatio.y);
                             break;
                     }

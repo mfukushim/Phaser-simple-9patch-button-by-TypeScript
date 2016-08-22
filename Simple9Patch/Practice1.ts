@@ -52,11 +52,6 @@
             this.label.text = "Cancel!";
         }
 
-        //next() {
-        //    this.game.time.events.clearPendingEvents();
-        //    this.game.state.start("Practice1", true, false);
-        //}
-
         update() {
         }
 

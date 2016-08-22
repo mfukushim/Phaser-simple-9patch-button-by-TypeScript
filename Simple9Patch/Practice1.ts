@@ -68,9 +68,6 @@
         }
 
         shutdown() {
-            //this.back.destroy();
-            //this.textblock.destroy();
-            //this.textblock2.destroy();
         }
     }
 
